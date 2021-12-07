@@ -1,6 +1,6 @@
 FROM python:3.8-alpine
 # Copying app to /app directory in container
-COPY site /app
+COPY src /app
 # Changing working directory
 WORKDIR /app
 # Installing requirements

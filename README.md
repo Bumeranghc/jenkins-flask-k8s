@@ -10,11 +10,14 @@ Start Minikube cluster: minikube start
 You need to run as well:
 minikube docker-env
 
-In Powershell also run:
+In Powershell run:
 Invoke-Expression -Command "minikube -p minikube docker-env"
 
-In CMD also run:
+In CMD run:
 @FOR /f "tokens=*" %i IN ('minikube -p minikube docker-env') DO @%i
+
+In bash run:
+eval $(minikube -p minikube docker-env)
 
 Than run:
 cd jenkins-minikube
