@@ -5,29 +5,36 @@ This is a demo fro CI/CD of Python Flask app to Kubernetes.
 Prerequisite Steps:
 Install minikube and Docker Desktop
 
-Start Minikube cluster: minikube start
+Start Minikube cluster:
+
+    minikube start
 
 You need to run as well:
-minikube docker-env
+
+    minikube docker-env
 
 In Powershell run:
-Invoke-Expression -Command "minikube -p minikube docker-env"
+
+    Invoke-Expression -Command "minikube -p minikube docker-env"
 
 In CMD run:
-@FOR /f "tokens=*" %i IN ('minikube -p minikube docker-env') DO @%i
+
+    @FOR /f "tokens=*" %i IN ('minikube -p minikube docker-env') DO @%i
 
 In bash run:
-eval $(minikube -p minikube docker-env)
+
+    eval $(minikube -p minikube docker-env)
 
 Than run:
-cd jenkins-minikube
-docker image build -t myjenkins .
-kubectl apply -f jenkins.yaml
-kubectl get all
-minikube ip
+
+    cd jenkins-minikube
+    docker image build -t myjenkins .
+    kubectl apply -f jenkins.yaml
+    kubectl get all
+    minikube ip
 
 So you can access Jenkins docker container via ip and port 31000. If it's not working, use:
 
-minikube service jenkins --url
+    minikube service jenkins --url
 
 And then try the URL from output.
