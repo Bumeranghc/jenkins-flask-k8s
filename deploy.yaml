@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+spec:
+  selector:
+    matchLabels:
+      app: hello-world
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - name: hello-world
+        image: ${REPOSITORY_TAG}
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: production-microservice
+        # Using this as a way to avoid having to bother pushing images to registry.
+        imagePullPolicy: Never
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-flask-k8s
+
+spec:
+  # This defines which pods are going to be represented by this Service
+  # The service becomes a network endpoint for either other services
+  # or maybe external users to connect to (eg browser)
+  selector:
+    app: hello-world
+
+  ports:
+    - name: http
+      port: 5000
+      nodePort: 30020
+
+  type: NodePort
